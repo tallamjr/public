@@ -234,3 +234,90 @@ private -->
 - pv/feature/<number>/short-token-description
 - pv/feature/<number>/issue/<number>/short-token-description
 ```
+
+* Finally we can rebase a commit on the public repository and ensure this is reflected in the
+    private repository. Again, this is just a system sanity check.
+
+
+```bash
+14:50:51 ✔ ~/Github/origin/public (master) :: git rebase -i HEAD~3
+```
+
+```bash
+pick 881d666 Updating README with instructions
+f 372ebcf [FIXUP]
+pick 848079d Update with final set of instructions
+
+# Rebase ba0bb9d..848079d onto ba0bb9d (3 commands)
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup <commit> = like "squash", but discard this commit's log message
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+# .       create a merge commit using the original merge commit's
+# .       message (or the oneline, if no original merge commit was
+# .       specified). Use -c <commit> to reword the commit message.
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+
+```
+
+```bash
+Successfully rebased and updated refs/heads/master.
+14:50:59 ✔ ~/Github/origin/public (master) :: git log --oneline
+d1293c2 (HEAD -> master) Update with final set of instructions
+b727c18 Updating README with instructions
+ba0bb9d Initial commit
+14:51:03 ✔ ~/Github/origin/public (master) :: git push -f
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 3.33 KiB | 3.33 MiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+To github.com:tallamjr/public.git
+ + 848079d...d1293c2 master -> master (forced update)
+14:51:12 ✔ ~/Github/origin/public (master) :: cd ../private/
+14:51:15 ✔ ~/Github/origin/private (master) :: git update
+remote: Enumerating objects: 8, done.
+remote: Counting objects: 100% (8/8), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 6 (delta 3), reused 6 (delta 3), pack-reused 0
+Unpacking objects: 100% (6/6), 3.31 KiB | 483.00 KiB/s, done.
+From github.com:tallamjr/public
+ * branch            master     -> FETCH_HEAD
+ + 848079d...d1293c2 master     -> upstream/master  (forced update)
+First, rewinding head to replay your work on top of it...
+Fetching origin
+Fetching upstream
+14:51:21 ✔ ~/Github/origin/private (master) :: git log --oneline
+d1293c2 (HEAD -> master, upstream/master) Update with final set of instructions
+b727c18 Updating README with instructions
+ba0bb9d Initial commit
+14:51:23 ✔ ~/Github/origin/private (master) :: git push -f
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 3.33 KiB | 1.11 MiB/s, done.
+Total 6 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+To github.com:tallamjr/private.git
+ + 848079d...d1293c2 master -> master (forced update)
+14:51:30 ✔ ~/Github/origin/private (master) ::
+```
